@@ -1,4 +1,4 @@
-module RSolr::Ext::Response::Facets
+module GSolr::Ext::Response::Facets
   
   # represents a facet value; which is a field value and its hit count
   class FacetItem

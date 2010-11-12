@@ -1,4 +1,4 @@
-module RSolr::Ext::Doc
+module GSolr::Ext::Doc
   
   # for easy access to the solr id (route helpers etc..)
   def id

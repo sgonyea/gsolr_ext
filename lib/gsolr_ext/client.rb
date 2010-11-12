@@ -1,4 +1,4 @@
-module RSolr::Ext::Client
+module GSolr::Ext::Client
   
   # TWO modes of arguments:
   #
@@ -8,17 +8,17 @@ module RSolr::Ext::Client
   #
   # The default request-handler-path is /select
   # 
-  # If a hash is used for solr params, all of the normal RSolr::Ext::Request
+  # If a hash is used for solr params, all of the normal GSolr::Ext::Request
   # mappings are available (everything else gets passed to solr).
-  # Returns a new RSolr::Ext::Response::Base object.
+  # Returns a new GSolr::Ext::Response::Base object.
   def find *args
     # remove the handler arg - the first, if it is a string OR set default
     path = args.first.is_a?(String) ? args.shift : '/select'
     # remove the params - the first, if it is a Hash OR set default
     params = args.first.kind_of?(Hash) ? args.shift : {}
     # send path, map params and send the rest of the args along
-    response = self.request path, RSolr::Ext::Request.map(params), *args
-    RSolr::Ext::Response::Base.new(response, path, params)
+    response = self.request path, GSolr::Ext::Request.map(params), *args
+    GSolr::Ext::Response::Base.new(response, path, params)
   end
   
   # TWO modes of arguments:

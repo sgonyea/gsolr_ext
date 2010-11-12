@@ -1,8 +1,8 @@
-module RSolr::Ext::Response
+module GSolr::Ext::Response
   
-  autoload :Docs, 'rsolr-ext/response/docs'
-  autoload :Facets, 'rsolr-ext/response/facets'
-  autoload :Spelling, 'rsolr-ext/response/spelling'
+  autoload :Docs, 'gsolr_ext/response/docs'
+  autoload :Facets, 'gsolr_ext/response/facets'
+  autoload :Spelling, 'gsolr_ext/response/spelling'
   
   class Base < Mash
     

@@ -1,19 +1,19 @@
-=RSolr::Ext
-A set of helper methods/modules to assist in building Solr queries and handling responses when using the RSolr library.
+=GSolr::Ext
+A set of helper methods/modules to assist in building Solr queries and handling responses when using the GSolr library.
 
 == Installation:
   gem sources -a http://gemcutter.org
-  sudo gem install rsolr-ext
+  sudo gem install gsolr_ext
 
 ==Related Resources & Projects
-* {RSolr}[http://github.com/mwmitchell/rsolr]
+* {GSolr}[http://github.com/mwmitchell/gsolr_ext]
 
 ==Requests
-To use the RSolr::Ext connection instead of the normal RSolr connection just require 'rsolr-ext':
-  require 'rsolr-ext'
-  solr = RSolr.connect
+To use the GSolr::Ext connection instead of the normal GSolr connection just require 'gsolr_ext':
+  require 'gsolr_ext'
+  solr = GSolr.connect
 
-RSolr::Ext adds a #find and a #luke method to the connection object.
+GSolr::Ext adds a #find and a #luke method to the connection object.
 
 ===#luke
 The #luke method returns a Hash/Mash result of a /admin/luke?numTerms=0 request:
@@ -27,7 +27,7 @@ The #luke method returns a Hash/Mash result of a /admin/luke?numTerms=0 request:
 The #find method listens for certain keys. All other keys are ignored, allowing the ability to mix-and-match special keys with normal Solr param keys. The recognized keys are describe below.
 
 
-:page - This maps to the Solr "start" param. The current "page" in the results set. RSolr::Ext handles the page-to-rows math for you.
+:page - This maps to the Solr "start" param. The current "page" in the results set. GSolr::Ext handles the page-to-rows math for you.
 
 
 :per_page - This maps to the Solr "rows" param. How many "pages" in the result.
@@ -72,8 +72,8 @@ The #find method listens for certain keys. All other keys are ignored, allowing 
 
 
 ==Request Example
-  require 'rsolr-ext'
-  solr = RSolr.connect
+  require 'gsolr_ext'
+  solr = GSolr.connect
   solr_params = {
     :page=>2,
     :per_page=>10,
@@ -84,13 +84,13 @@ The #find method listens for certain keys. All other keys are ignored, allowing 
     :facets=>{:fields=>['cat', 'blah']},
     :echoParams => 'EXPLICIT'
   }
-  response = rsolr.find solr_params
+  response = gsolr_ext.find solr_params
 
 ==Responses
-RSolr::Ext decorates the normal output hash from RSolr and adds some helpful methods.
+GSolr::Ext decorates the normal output hash from GSolr and adds some helpful methods.
   
-  require 'rsolr-ext'
-  solr = RSolr.connect
+  require 'gsolr_ext'
+  solr = GSolr.connect
   
   response = solr.find :q=>'*:*'
   
@@ -113,10 +113,10 @@ If you wanna paginate, just throw the collection into the WillPaginate view help
   <%= will_paginate response.docs %>
 
 ==The "Model" Module
-You can create your own <read-only> "models" using RSolr::Ext::Model
+You can create your own <read-only> "models" using GSolr::Ext::Model
   
   class Book
-    include RSolr::Ext::Model
+    include GSolr::Ext::Model
     def self.find_by_author(author)
         find(:fq=>'object_type:"book"', :rows=>10, :phrase_filters=>{:author=>author})
     end

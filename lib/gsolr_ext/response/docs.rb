@@ -1,4 +1,4 @@
-module RSolr::Ext::Response::Docs
+module GSolr::Ext::Response::Docs
   
   module Pageable
     
@@ -42,7 +42,7 @@ module RSolr::Ext::Response::Docs
   
   def self.extended(base)
     d = base['response']['docs']
-    d.each{|doc| doc.extend RSolr::Ext::Doc }
+    d.each{|doc| doc.extend GSolr::Ext::Doc }
     d.extend Pageable
     d.per_page = base.rows
     d.start = base.start

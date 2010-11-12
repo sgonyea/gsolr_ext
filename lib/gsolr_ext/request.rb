@@ -1,4 +1,4 @@
-module RSolr::Ext::Request
+module GSolr::Ext::Request
   
   module Params
     

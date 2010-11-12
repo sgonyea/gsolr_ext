@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{rsolr-ext}
+  s.name = %q{gsolr_ext}
   s.version = "0.12.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Mitchell"]
   s.date = %q{2010-08-01}
-  s.description = %q{A query/response extension lib for RSolr}
+  s.description = %q{A query/response extension lib for GSolr}
   s.email = %q{goodieboy@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -21,23 +21,23 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "VERSION",
      "lib/mash.rb",
-     "lib/rsolr-ext.rb",
-     "lib/rsolr-ext/client.rb",
-     "lib/rsolr-ext/doc.rb",
-     "lib/rsolr-ext/model.rb",
-     "lib/rsolr-ext/request.rb",
-     "lib/rsolr-ext/response.rb",
-     "lib/rsolr-ext/response/docs.rb",
-     "lib/rsolr-ext/response/facets.rb",
-     "lib/rsolr-ext/response/spelling.rb"
+     "lib/gsolr_ext.rb",
+     "lib/gsolr_ext/client.rb",
+     "lib/gsolr_ext/doc.rb",
+     "lib/gsolr_ext/model.rb",
+     "lib/gsolr_ext/request.rb",
+     "lib/gsolr_ext/response.rb",
+     "lib/gsolr_ext/response/docs.rb",
+     "lib/gsolr_ext/response/facets.rb",
+     "lib/gsolr_ext/response/spelling.rb"
   ]
-  s.homepage = %q{http://github.com/mwmitchell/rsolr-ext}
+  s.homepage = %q{http://github.com/mwmitchell/gsolr_ext}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A query/response extension lib for RSolr}
+  s.summary = %q{A query/response extension lib for GSolr}
   s.test_files = [
-    "spec/rsolr-ext_spec.rb",
+    "spec/gsolr_ext_spec.rb",
      "spec/spec_helper.rb",
      "spec/spec.opts",
      "Rakefile"
@@ -49,14 +49,14 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.9"])
-      s.add_runtime_dependency(%q<rsolr>, [">= 0.12.1"])
+      s.add_runtime_dependency(%q<gsolr_ext>, [">= 0.12.1"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.9"])
-      s.add_dependency(%q<rsolr>, [">= 0.12.1"])
+      s.add_dependency(%q<gsolr_ext>, [">= 0.12.1"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.9"])
-    s.add_dependency(%q<rsolr>, [">= 0.12.1"])
+    s.add_dependency(%q<gsolr_ext>, [">= 0.12.1"])
   end
 end
 

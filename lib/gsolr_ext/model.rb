@@ -1,14 +1,14 @@
 # include this module into a plain ruby class:
 # class Book
-#   include RSolr::Ext::Model
-#   connection = RSolr::Ext.connect
+#   include GSolr::Ext::Model
+#   connection = GSolr::Ext.connect
 #   default_params = {:phrase_filters=>'type:book'}
 # end
 # 
 # Then:
 # number_10 = Book.find_by_id(10)
 #
-module RSolr::Ext::Model
+module GSolr::Ext::Model
   
   # ripped from MongoMapper!
   module Pluggable
@@ -60,7 +60,7 @@ module RSolr::Ext::Model
     attr_accessor :connection
     
     def connection
-      @connection ||= RSolr::Ext.connect
+      @connection ||= GSolr::Ext.connect
     end
     
     # this method decorates the connection find method
@@ -82,7 +82,7 @@ module RSolr::Ext::Model
     base.extend Pluggable
     base.extend Callbacks
     base.extend Findable
-    base.send :include, RSolr::Ext::Doc
+    base.send :include, GSolr::Ext::Doc
   end
   
   attr_reader :solr_response

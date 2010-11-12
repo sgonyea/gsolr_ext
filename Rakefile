@@ -4,14 +4,14 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "rsolr-ext"
-    gem.summary = %Q{A query/response extension lib for RSolr}
-    gem.description = %Q{A query/response extension lib for RSolr}
+    gem.name = "gsolr_ext"
+    gem.summary = %Q{A query/response extension lib for GSolr}
+    gem.description = %Q{A query/response extension lib for GSolr}
     gem.email = "goodieboy@gmail.com"
-    gem.homepage = "http://github.com/mwmitchell/rsolr-ext"
+    gem.homepage = "http://github.com/mwmitchell/gsolr_ext"
     gem.authors = ["Matt Mitchell"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_dependency "rsolr", ">= 0.12.1"
+    gem.add_dependency "gsolr_ext", ">= 0.12.1"
     
     gem.files = FileList['lib/**/*.rb', 'LICENSE', 'README.rdoc', 'VERSION']
     gem.test_files = ['spec/*', 'Rakefile']
@@ -44,7 +44,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "rsolr-ext #{version}"
+  rdoc.title = "gsolr_ext #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

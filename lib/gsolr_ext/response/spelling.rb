@@ -2,7 +2,7 @@
 #
 # response.spelling.words
 #
-module RSolr::Ext::Response::Spelling
+module GSolr::Ext::Response::Spelling
 
   def spelling
     @spelling ||= Base.new(self)

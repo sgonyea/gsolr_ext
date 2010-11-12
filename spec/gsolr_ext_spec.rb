@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe RSolr::Ext do
+describe GSolr::Ext do
 
-  context RSolr::Client do
+  context GSolr::Client do
 
-    let(:client){RSolr.connect}
+    let(:client){GSolr.connect}
 
     it 'should now have a #find method' do
       client.should respond_to(:find)
@@ -68,8 +68,8 @@ describe RSolr::Ext do
       client.connection.should_receive(:request).
         with('/admin/ping', :wt => :ruby ).
         # the first part of the what the message would really be
-        and_raise( RSolr::RequestError.new("Solr Response: pingQuery_not_configured_consider_registering_PingRequestHandler_with_the_name_adminping_instead__") )
-        lambda { client.ping? }.should raise_error( RSolr::RequestError )
+        and_raise( GSolr::RequestError.new("Solr Response: pingQuery_not_configured_consider_registering_PingRequestHandler_with_the_name_adminping_instead__") )
+        lambda { client.ping? }.should raise_error( GSolr::RequestError )
     end
 
   end
@@ -77,7 +77,7 @@ describe RSolr::Ext do
   context 'requests' do
 
     it 'should create a valid request' do
-      solr_params = RSolr::Ext::Request.map(
+      solr_params = GSolr::Ext::Request.map(
         :page=>'2',
         :per_page=>'10',
         :phrases=>{:name=>'This is a phrase'},
@@ -96,7 +96,7 @@ describe RSolr::Ext do
     end
 
     it 'should map fq using the phrase_filters mapping' do
-      solr_params = RSolr::Ext::Request.map(
+      solr_params = GSolr::Ext::Request.map(
         :phrase_filters=>{:manu=>['Apple', 'ASG'], :color=>['red', 'blue']}
       )
 
@@ -109,7 +109,7 @@ describe RSolr::Ext do
     end
 
     it 'should map :filters and :phrase_filters while keeping an existing :fq' do
-      solr_params = RSolr::Ext::Request.map(
+      solr_params = GSolr::Ext::Request.map(
         :fq => 'blah blah',
         :phrase_filters=>{:manu=>['Apple', 'ASG'], :color=>['red', 'blue']}
       )
@@ -123,7 +123,7 @@ describe RSolr::Ext do
     end
 
     it 'should map arrays of ranges in :phrase_filters' do
-        solr_params = RSolr::Ext::Request.map(
+        solr_params = GSolr::Ext::Request.map(
           :phrase_filters=>{:range=>[1940..2020]}
         )
 
@@ -137,7 +137,7 @@ describe RSolr::Ext do
 
     def create_response
       raw_response = eval(mock_query_response)
-      RSolr::Ext::Response::Base.new(raw_response, '/select', raw_response['params'])
+      GSolr::Ext::Response::Base.new(raw_response, '/select', raw_response['params'])
     end
 
     it 'should create a valid response' do
@@ -164,11 +164,11 @@ describe RSolr::Ext do
       r.docs.previous_page.should == 1
       r.docs.next_page.should == 2
       #
-      r.should be_a(RSolr::Ext::Response::Docs)
-      r.should be_a(RSolr::Ext::Response::Facets)
+      r.should be_a(GSolr::Ext::Response::Docs)
+      r.should be_a(GSolr::Ext::Response::Facets)
     end
 
-    it 'should create a doc with rsolr-ext methods' do
+    it 'should create a doc with gsolr_ext methods' do
       r = create_response
 
       doc = r.docs.first
@@ -220,53 +220,53 @@ describe RSolr::Ext do
     it 'should provide the responseHeader params' do
       raw_response = eval(mock_query_response)
       raw_response['responseHeader']['params']['test'] = :test
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', raw_response['params'])
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', raw_response['params'])
       r.params['test'].should == :test
     end
 
     it 'should provide the solr-returned params and "rows" should be 11' do
       raw_response = eval(mock_query_response)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.params[:rows].to_s.should == '11'
     end
 
     it 'should provide the ruby request params if responseHeader["params"] does not exist' do
       raw_response = eval(mock_query_response)
       raw_response.delete 'responseHeader'
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', :rows => 999)
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', :rows => 999)
       r.params[:rows].to_s.should == '999'
     end
 
     it 'should provide spelling suggestions for regular spellcheck results' do
       raw_response = eval(mock_response_with_spellcheck)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.spelling.words.should include("dell")
       r.spelling.words.should include("ultrasharp")
     end
 
     it 'should provide spelling suggestions for extended spellcheck results' do
       raw_response = eval(mock_response_with_spellcheck_extended)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.spelling.words.should include("dell")
       r.spelling.words.should include("ultrasharp")
     end
 
     it 'should provide no spelling suggestions when extended results and suggestion frequency is the same as original query frequency' do
       raw_response = eval(mock_response_with_spellcheck_same_frequency)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.spelling.words.should == []
     end
 
     it 'should provide spelling suggestions for a regular spellcheck results with a collation' do
       raw_response = eval(mock_response_with_spellcheck_collation)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.spelling.words.should include("dell")
       r.spelling.words.should include("ultrasharp")
     end
 
     it 'should provide spelling suggestion collation' do
       raw_response = eval(mock_response_with_spellcheck_collation)
-      r = RSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
+      r = GSolr::Ext::Response::Base.new(raw_response, '/catalog', {})
       r.spelling.collation.should == 'dell ultrasharp'
     end
 
